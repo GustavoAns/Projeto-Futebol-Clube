@@ -9,7 +9,7 @@ module.exports = {
         autoIncrement: true,
         primaryKey: true,
       },
-      home_teamm: {
+      homeTeamm: {
         type: Sequelize.INTEGER,
         references: {
           model: 'clubs',
@@ -19,11 +19,11 @@ module.exports = {
         onUpdate: 'CASCADE',
         allowNull: false,
       },
-      home_team_goals: {
+      homeTeamGoals: {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
-      away_team: {
+      awayTeam: {
         type: Sequelize.INTEGER,
         references: {
           model: 'clubs',
@@ -33,14 +33,16 @@ module.exports = {
         onUpdate: 'CASCADE',
         allowNull: false,
       },
-      away_team_goals: {
+      awayTeamGoals: {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
-      in_progress: {
+      inProgress: {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
+    },{
+      underscored: true,
     });    
   },
 

@@ -1,11 +1,12 @@
 import { Model, DataTypes } from 'sequelize';
 import db from '.';
+import Match from './Match';
 // import OtherModel from './OtherModel';
 
 class Club extends Model {
-  static associate(models: any) {
-    Club.hasMany(models.Match, { foreignKey: 'id' });
-  }
+  public id!: number;
+
+  public clubName!: string;
 }
 
 Club.init({
@@ -15,8 +16,8 @@ Club.init({
     autoIncrement: true,
     primaryKey: true,
   },
-  club_name: {
-    type: DataTypes.INTEGER,
+  clubName: {
+    type: DataTypes.STRING,
     allowNull: false,
   },
 }, {
@@ -26,5 +27,10 @@ Club.init({
   tableName: 'clubs',
   timestamps: false,
 });
+
+Club.hasMany(Match, { foreignKey: 'id', as: 'homeMatchs' });
+Club.hasMany(Match, { foreignKey: 'id', as: 'awayMatchs' });
+Match.belongsTo(Club, { foreignKey: 'homeTeamm', as: 'homeTeamm' });
+Match.belongsTo(Club, { foreignKey: 'awayTeam', as: 'awayTeam' });
 
 export default Club;

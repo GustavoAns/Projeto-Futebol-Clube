@@ -1,11 +1,18 @@
 import { Model, DataTypes } from 'sequelize';
 import db from '.';
-import Club from './Club';
 
 class Match extends Model {
-  static associate() {
-    Match.hasMany(Club, { foreignKey: 'id' });
-  }
+  public id!: number;
+
+  public homeTeamm!: number;
+
+  public homeTeamGoals!: number;
+
+  public awayTeam!: number;
+
+  public awayTeamGoals!: number;
+
+  public inProgress!: number;
 }
 
 Match.init({
@@ -15,7 +22,7 @@ Match.init({
     autoIncrement: true,
     primaryKey: true,
   },
-  home_teamm: {
+  homeTeamm: {
     type: DataTypes.INTEGER,
     references: {
       model: 'clubs',
@@ -25,11 +32,11 @@ Match.init({
     onUpdate: 'CASCADE',
     allowNull: false,
   },
-  home_team_goals: {
+  homeTeamGoals: {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
-  away_team: {
+  awayTeam: {
     type: DataTypes.INTEGER,
     references: {
       model: 'clubs',
@@ -39,11 +46,11 @@ Match.init({
     onUpdate: 'CASCADE',
     allowNull: false,
   },
-  away_team_goals: {
+  awayTeamGoals: {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
-  in_progress: {
+  inProgress: {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
