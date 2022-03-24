@@ -4,7 +4,7 @@ import db from '.';
 class Match extends Model {
   public id!: number;
 
-  public homeTeamm!: number;
+  public homeTeam!: number;
 
   public homeTeamGoals!: number;
 
@@ -22,14 +22,8 @@ Match.init({
     autoIncrement: true,
     primaryKey: true,
   },
-  homeTeamm: {
+  homeTeam: {
     type: DataTypes.INTEGER,
-    references: {
-      model: 'clubs',
-      key: 'id',
-    },
-    onDelete: 'CASCADE',
-    onUpdate: 'CASCADE',
     allowNull: false,
   },
   homeTeamGoals: {
@@ -38,12 +32,6 @@ Match.init({
   },
   awayTeam: {
     type: DataTypes.INTEGER,
-    references: {
-      model: 'clubs',
-      key: 'id',
-    },
-    onDelete: 'CASCADE',
-    onUpdate: 'CASCADE',
     allowNull: false,
   },
   awayTeamGoals: {

@@ -12,14 +12,14 @@ module.exports = {
       clubName: {
         type: Sequelize.STRING,
         allowNull: false,
-        fild: 'club_name',
+        field: 'club_name',
       }
     },{
       underscored: true,
     });     
   },
 
-  down: async (queryInterface, Sequelize) => {
+  down: async (queryInterface, _Sequelize) => {
     await queryInterface.dropTable('clubs');
   }
 };
