@@ -9,4 +9,12 @@ route.post('/', async (req, res) => {
   if (result) return res.status(result.Status).json(result.loginReturn);
 });
 
+route.get('/validate', async (req, res) => {
+  const { authorization } = req.headers;
+  if (!authorization) return res.status(401).json('Enter the authentication token');
+  // return res.status(200).json(authorization);
+  const result = await LoginController.validate(authorization);
+  if (result) return res.status(result.Status).json(result.loginReturn);
+});
+
 export default route;

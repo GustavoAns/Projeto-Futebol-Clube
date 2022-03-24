@@ -1,5 +1,6 @@
 import fs = require('fs/promises');
 import jwt = require('jsonwebtoken');
+import bcrypt = require('bcrypt');
 import { Service } from 'typedi';
 import { LoginReturn, LoginBody } from '../interfaces/login';
 import User from '../models/User';
@@ -10,15 +11,16 @@ import { ErrorMessages } from '../enuns';
 export default class LoginService {
   static async creatLoginReturn(findUser: User): Promise<LoginReturn> {
     const senhaSecreta = await fs.readFile('./jwt.evaluation.key', 'utf8');
-    const token = await jwt.sign({ ...findUser }, senhaSecreta, { expiresIn: '24h' });
+    const user = {
+      id: findUser.id,
+      username: findUser.username,
+      role: findUser.role,
+      email: findUser.email,
+    };
+    const token = await jwt.sign({ ...user }, senhaSecreta, { expiresIn: '24h' });
     return {
       loginReturn: {
-        user: {
-          id: findUser.id,
-          username: findUser.username,
-          role: findUser.role,
-          email: findUser.email,
-        },
+        user,
         token,
       },
       Status: 200,
@@ -31,9 +33,8 @@ export default class LoginService {
       return { loginReturn: { message: ErrorMessages.ERROR_LOGIN }, Status: 401 };
     }
     const { password } = findUser;
-    console.log(password);
-    console.log(loginBody.password);
-    if (password !== loginBody.password) {
+    const isValid = await bcrypt.compare(loginBody.password, password);
+    if (!isValid) {
       return { loginReturn: { message: ErrorMessages.ERROR_LOGIN }, Status: 401 };
     }
     return this.creatLoginReturn(findUser);

@@ -14,4 +14,10 @@ export default class LoginController {
     }
     return { loginReturn: { message: validReturn.message }, Status: validReturn.status };
   }
+
+  static async validate(token: string) {
+    const userRole = await LoginValidate.validToken(token);
+    if (userRole !== undefined) return { loginReturn: userRole, Status: 200 };
+    return { loginReturn: { message: 'Token invalid' }, Status: 402 };
+  }
 }

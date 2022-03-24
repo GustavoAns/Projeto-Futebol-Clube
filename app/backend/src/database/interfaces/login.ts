@@ -21,3 +21,10 @@ export type ReturnMessageStatus = {
   message: string;
   status: number;
 };
+
+export type RetornoJWT = {
+  id: number;
+  username: string;
+  role: string;
+  email: string;
+};

@@ -1,5 +1,7 @@
 import { Service } from 'typedi';
-import { LoginBody, ReturnMessageStatus } from '../interfaces/login';
+import fs = require('fs/promises');
+import jwt = require('jsonwebtoken');
+import { LoginBody, ReturnMessageStatus, RetornoJWT } from '../interfaces/login';
 import { ErrorMessages, Status } from '../enuns';
 
 @Service()
@@ -21,5 +23,15 @@ export default class LoginValidate {
       message: ErrorMessages.ERROR_LOGIN,
       status: Status.UNAUTHORIZED,
     };
+  }
+
+  static async validToken(token: string) {
+    const senhaSecreta = await fs.readFile('./jwt.evaluation.key', 'utf8');
+    try {
+      const jwtReturn = jwt.verify(token, senhaSecreta);
+      return (jwtReturn as RetornoJWT).role;
+    } catch (_) {
+      return undefined;
+    }
   }
 }
