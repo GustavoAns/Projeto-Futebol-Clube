@@ -19,6 +19,7 @@ Club.init({
   clubName: {
     type: DataTypes.STRING,
     allowNull: false,
+    field: 'club_name',
   },
 }, {
   underscored: true,
@@ -30,7 +31,7 @@ Club.init({
 
 Club.hasMany(Match, { foreignKey: 'id', as: 'homeMatchs' });
 Club.hasMany(Match, { foreignKey: 'id', as: 'awayMatchs' });
-Match.belongsTo(Club, { foreignKey: 'homeTeamm', as: 'homeTeamm' });
-Match.belongsTo(Club, { foreignKey: 'awayTeam', as: 'awayTeam' });
+Match.belongsTo(Club, { foreignKey: 'homeTeam', as: 'homeClub' });
+Match.belongsTo(Club, { foreignKey: 'awayTeam', as: 'awayClub' });
 
 export default Club;
