@@ -1,12 +1,12 @@
 import { Service } from 'typedi';
 // import { LoginBody } from '../interfaces/login';
-import ClubsService from '../services/clubsService';
+import MatchsService from '../services/MatchsService';
 // import { Status } from '../enuns';
 
 @Service()
-export default class ClubsController {
-  static async getAllClubs() {
-    const validReturn = await ClubsService.getAllClubs();
+export default class MatchsController {
+  static async getAllMatchs() {
+    const validReturn = await MatchsService.getAllMatchs();
     if (validReturn) {
       return { loginReturn: validReturn.loginReturn, Status: validReturn.status };
     }
