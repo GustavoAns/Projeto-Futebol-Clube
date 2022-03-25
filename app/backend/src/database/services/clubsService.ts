@@ -16,4 +16,12 @@ export default class ClubsService {
       return { loginReturn: findUser, status: 200 };
     }
   }
+
+  static async getById(id: number) {
+    const findUser = await Club.findOne({ where: { id } });
+    // const findUser = { meessage: 'WIP' };
+    if (findUser) {
+      return { loginReturn: findUser, status: 200 };
+    }
+  }
 }

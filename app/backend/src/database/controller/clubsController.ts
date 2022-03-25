@@ -11,4 +11,11 @@ export default class ClubsController {
       return { loginReturn: validReturn.loginReturn, Status: validReturn.status };
     }
   }
+
+  static async getById(id: number) {
+    const validReturn = await ClubsService.getById(id);
+    if (validReturn) {
+      return { loginReturn: validReturn.loginReturn, Status: validReturn.status };
+    }
+  }
 }
