@@ -1,4 +1,5 @@
 jsonwebtoken
-@types/bcrypt
-bcrypt
+@types/bcryptjs
+bcryptjs
 typedi
+nodemon

@@ -1,6 +1,6 @@
 import fs = require('fs/promises');
 import jwt = require('jsonwebtoken');
-import bcrypt = require('bcrypt');
+import * as bcrypt from 'bcryptjs';
 import { Service } from 'typedi';
 import { LoginReturn, LoginBody } from '../interfaces/login';
 import User from '../models/User';
