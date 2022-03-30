@@ -28,3 +28,13 @@ export type RetornoJWT = {
   role: string;
   email: string;
 };
+
+export type UserToken = {
+  user: {
+    id: number;
+    username: string;
+    role: string;
+    email: string;
+  }
+  token: string;
+};
