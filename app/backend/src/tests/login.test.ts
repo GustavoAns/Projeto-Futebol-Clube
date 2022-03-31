@@ -96,4 +96,25 @@ describe('Testa a rota /login', () => {
       expect(chaiHttpResponse.body).to.have.property('token');
     });
   });
+
+  describe('/validate | Quando é passado um token para verificar.', () => {
+    let chaiHttpResponse: Response;
+
+    before(async () => {
+      sinon.stub(User, "findOne").resolves(usersMocked[0] as User);
+    });
+
+    after(()=>{
+      (User.findOne as sinon.SinonStub).restore();
+    })
+
+    it('Deve ser retornado o cargo do usuario.', async () => {
+      const { id, username, role, email } = usersMocked[0];
+      const senhaSecreta = await fs.readFile('./jwt.evaluation.key', 'utf8');
+      const authorization = await jwt.sign({ id, username, role, email }, senhaSecreta, { expiresIn: '24h' }),
+      chaiHttpResponse = await chai.request(app).get('/login/validate').set('Authorization', authorization);
+      expect(chaiHttpResponse.status).to.be.equal(200);
+      expect(chaiHttpResponse.body).to.be.deep.equal(role);
+    });
+  });
 });

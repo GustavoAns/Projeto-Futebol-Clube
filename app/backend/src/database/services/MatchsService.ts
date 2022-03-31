@@ -45,7 +45,6 @@ export default class MatchsService {
     const { homeTeam, awayTeam, homeTeamGoals, awayTeamGoals, inProgress } = obj;
     const msgSameTeam = 'It is not possible to create a match with two equal teams';
     const notFound = 'There is no team with such id!';
-    console.log(homeTeam === awayTeam);
     if (homeTeam === awayTeam) { return { loginReturn: { message: msgSameTeam }, status: 401 }; }
     const bool = await this.validClub({ homeTeam, awayTeam });
     if (bool) return { loginReturn: { message: notFound }, status: 401 };
